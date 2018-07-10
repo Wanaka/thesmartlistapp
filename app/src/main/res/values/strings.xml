@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">TheSmartListApp</string>
+    <string name="app_name">The Smart Shopping List</string>
+    <string name="create_list_title">Create New List</string>
+    <string name="hint_create_list">What will you name your new list?</string>
+    <string name="create_button">Create</string>
+    <string name="close_button">X</string>
 </resources>

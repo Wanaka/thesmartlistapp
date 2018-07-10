@@ -1,5 +1,8 @@
 package com.example.jonas.thesmartlistapp.activity;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +16,11 @@ import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
 
 import java.util.ArrayList;
 
-public class MainListActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener {
+public class MainListActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener, View.OnClickListener{
 
     private Toolbar toolbar;
-    //set rv code
+    private FloatingActionButton createListButton;
     RecyclerViewAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,9 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         setContentView(R.layout.activity_main_list);
         toolbar = findViewById(R.id.listToolbar);
         setSupportActionBar(toolbar);
+
+        createListButton = findViewById(R.id.createListActionButton);
+        createListButton.setOnClickListener(this);
 
         //set rv code
         // data to populate the RecyclerView with
@@ -57,5 +62,15 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        createListAction();
+    }
+
+    private void createListAction(){
+        Intent intent = new Intent(this, CreateListActivity.class);
+        startActivity(intent);
     }
 }

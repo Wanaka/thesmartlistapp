@@ -8,4 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Styles -->
+    <!-- create button -->
+    <style name="CreateButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorBlueHighlited</item>
+        <item name="colorButtonNormal">@color/colorBlueMain</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="CloseButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/colorWhite</item>
+        <item name="colorButtonNormal">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
 </resources>
