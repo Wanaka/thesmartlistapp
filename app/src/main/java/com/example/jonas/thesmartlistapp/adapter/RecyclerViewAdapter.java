@@ -7,20 +7,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<String> mData;
+    private List<Word> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public RecyclerViewAdapter(Context context, List<String> data) {
+    public RecyclerViewAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+    }
+
+    public void setWords(List<Word> words){
+        mData = words;
+        notifyDataSetChanged();
     }
 
     // inflates the row layout from xml when needed
@@ -33,18 +39,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String textData = mData.get(position);
-        holder.myTextView.setText(textData);
+        Word textData = mData.get(position);
+        holder.myTextView.setText(textData.getWord());
     }
 
     // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        if(mData == null){
+            List<Word> datalist = new ArrayList<>();
+
+            return datalist.size();
+        } else {
+            return mData.size();
+        }
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
+    public Word getItem(int id) {
         return mData.get(id);
     }
 
