@@ -16,32 +16,19 @@ import java.util.List;
 public class Repository {
 
     private WordDao mWordDao;
-    private LiveData<List<Word>> mAllWords;
-    private MutableLiveData<List<Word>> fruitList;
 
     public Repository(Application application) {
         WordRoomDatabase db = WordRoomDatabase.getDatabase(application);
         mWordDao = db.wordDao();
-        mAllWords = mWordDao.getAllWords();
-
-        fruitList = new MutableLiveData<>();
-
-        Word w = new Word("hello");
-
-        List<Word> list = new ArrayList<>();
-
-        list.add(w);
-
-        fruitList.setValue(list);
-        //set rv code
-        // data to populate the RecyclerView with
-
     }
 
-    public LiveData<List<Word>> getAllLists() {
-        return mAllWords;
+    public LiveData<List<Word>> getAllLists(String list) {
+        return mWordDao.getAllWords(list);
     }
 
+    public LiveData<List<Word>> getList(String id) {
+        return mWordDao.getList(id);
+    }
 
     public void insert (Word word) {
         new insertAsyncTask(mWordDao).execute(word);

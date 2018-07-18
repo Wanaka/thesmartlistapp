@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/add_item_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -25,12 +25,12 @@
         android:ems="10"
         android:hint="@string/add_item_hint"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton4"
-        app:layout_constraintStart_toEndOf="@+id/floatingActionButton3"
+        app:layout_constraintEnd_toStartOf="@+id/add_item_button"
+        app:layout_constraintStart_toEndOf="@+id/category_button"
         app:layout_constraintTop_toBottomOf="@+id/include3" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
+        android:id="@+id/category_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="24dp"
@@ -38,11 +38,11 @@
         android:clickable="true"
         app:backgroundTint="@android:color/holo_orange_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/add_item_text"
         app:srcCompat="@android:color/holo_orange_light" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton4"
+        android:id="@+id/add_item_button"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
@@ -51,7 +51,7 @@
         android:tint="@color/colorWhite"
         app:backgroundTint="@android:color/holo_green_dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/add_item_text"
         app:srcCompat="@drawable/ic_add" />
 
     <android.support.v7.widget.RecyclerView
@@ -61,7 +61,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/add_item_text" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/verticalRV"

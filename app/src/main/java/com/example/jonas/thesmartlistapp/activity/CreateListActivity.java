@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
+import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
 public class CreateListActivity extends AppCompatActivity{
@@ -57,7 +58,7 @@ public class CreateListActivity extends AppCompatActivity{
     }
 
     public void saveData(String word){
-        Word setWord = new Word(word);
+        Word setWord = new Word(word, Constants.LIST, null);
         listViewModel.insert(setWord);
         Intent intent = new Intent(this, MainListActivity.class);
         startActivity(intent);

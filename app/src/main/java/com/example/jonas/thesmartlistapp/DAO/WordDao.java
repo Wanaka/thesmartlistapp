@@ -18,7 +18,13 @@ public interface WordDao {
     @Query("DELETE FROM word_table")
     void deleteAll();
 
+
+    //Get all words with a special id
+    @Query("SELECT * from word_table WHERE ownerId = :id ORDER BY word ASC")
+    LiveData<List<Word>> getList(String id);
+
+
     //Get all words in an order
-    @Query("SELECT * from word_table ORDER BY word ASC")
-    LiveData<List<Word>> getAllWords();
+    @Query("SELECT * from word_table WHERE list = :list ORDER BY word ASC")
+    LiveData<List<Word>> getAllWords(String list);
 }

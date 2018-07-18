@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
+import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-        listViewModel.getAllLists().observe(this, new Observer<List<Word>>() {
+        listViewModel.getAllLists(Constants.LIST).observe(this, new Observer<List<Word>>() {
             @Override
             public void onChanged(@Nullable final List<Word> words) {
                 // Update the cached copy of the words in the adapter.
@@ -72,6 +73,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         Intent intent = new Intent(this, SubListActivity.class);
         Bundle mBundle = new Bundle();
         mBundle.putString("list_title",adapter.getItem(position).getWord().toString());
+        mBundle.putString("id",String.valueOf(adapter.getItem(position).getId()));
         intent.putExtras(mBundle);
         startActivity(intent);
         //Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();

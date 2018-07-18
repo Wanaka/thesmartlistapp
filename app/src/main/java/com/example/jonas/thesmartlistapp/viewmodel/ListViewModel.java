@@ -13,16 +13,17 @@ public class ListViewModel extends AndroidViewModel {
 
     private Repository mRepository;
 
-    private LiveData<List<Word>> mAllWords;
-
     public ListViewModel (Application application) {
         super(application);
         mRepository = new Repository(application);
-        mAllWords = mRepository.getAllLists();
     }
 
-    public LiveData<List<Word>> getAllLists() {
-        return mAllWords;
+    public LiveData<List<Word>> getAllLists(String list) {
+        return mRepository.getAllLists(list);
+    }
+
+    public LiveData<List<Word>> getList(String id) {
+        return mRepository.getList(id);
     }
 
     public void insert(Word word) {
