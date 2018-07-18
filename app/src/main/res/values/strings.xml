@@ -4,4 +4,5 @@
     <string name="hint_create_list">What will you name your new list?</string>
     <string name="create_button">Create</string>
     <string name="close_button">X</string>
+    <string name="add_item_hint">Add item</string>
 </resources>

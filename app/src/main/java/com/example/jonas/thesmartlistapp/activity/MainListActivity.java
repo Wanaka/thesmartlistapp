@@ -69,7 +69,12 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, SubListActivity.class);
+        Bundle mBundle = new Bundle();
+        mBundle.putString("list_title",adapter.getItem(position).getWord().toString());
+        intent.putExtras(mBundle);
+        startActivity(intent);
+        //Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override

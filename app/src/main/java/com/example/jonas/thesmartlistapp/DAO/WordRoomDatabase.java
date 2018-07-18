@@ -30,7 +30,7 @@ public abstract class WordRoomDatabase extends RoomDatabase {
     }
 
     //Dont know what this part does..
-
+/*
     private static RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback(){
 
@@ -59,5 +59,5 @@ public abstract class WordRoomDatabase extends RoomDatabase {
             return null;
         }
     }
-
+*/
 }

@@ -5,10 +5,15 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(tableName = "word_table")
 public class Word {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    private int mId;
+
     @NonNull
     @ColumnInfo(name = "word")
     private String mWord;
@@ -19,7 +24,11 @@ public class Word {
 
     public String getWord(){return this.mWord;}
 
-    public void setWord(@NonNull String mWord) {
-        this.mWord = mWord;
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        this.mId = id;
     }
 }
