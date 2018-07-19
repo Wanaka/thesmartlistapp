@@ -2,9 +2,11 @@ package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +18,8 @@ import android.widget.EditText;
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
-import com.example.jonas.thesmartlistapp.constants.Constants;
+import com.example.jonas.thesmartlistapp.fragment.CategoryFragment;
+import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
 import java.util.List;
@@ -26,7 +29,7 @@ public class SubListActivity extends AppCompatActivity {
     private Toolbar toolbar;
     RecyclerViewAdapter adapterVertical, adapter2;
     private ListViewModel listViewModel;
-    FloatingActionButton mAddItemButton;
+    FloatingActionButton mAddItemButton, mCategoryButton;
     EditText addItemText;
 
     @Override
@@ -42,6 +45,7 @@ public class SubListActivity extends AppCompatActivity {
 
         mAddItemButton = findViewById(R.id.add_item_button);
         addItemText = findViewById(R.id.add_item_text);
+        mCategoryButton = findViewById(R.id.category_button);
 
         listViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
 
@@ -59,7 +63,6 @@ public class SubListActivity extends AppCompatActivity {
         horizontalRecyclerView.setAdapter(adapter2);
         */
 
-
         listViewModel.getList(wordId).observe(this, new Observer<List<Word>>() {
             @Override
             public void onChanged(@Nullable final List<Word> words) {
@@ -72,15 +75,34 @@ public class SubListActivity extends AppCompatActivity {
         mAddItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveData(addItemText.getText().toString(), wordId);
-                addItemText.getText().clear();
+                if (addItemText.getText().toString().isEmpty()) {
+                    Toaster.showLongToastMethod(getApplicationContext(), getString(R.string.toast_write_something));
+                } else {
+                    saveData(addItemText.getText().toString(), wordId);
+                    addItemText.getText().clear();
+                }
             }
         });
-
+        mCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startCategoryFragment();
+            }
+        });
     }
 
-    public void saveData(String word, String id){
-        Word setWord = new Word(word, null, id);
+    public void startCategoryFragment() {
+        // Begin the transaction
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // Replace the contents of the container with the new fragment
+        ft.replace(R.id.your_placeholder, new CategoryFragment());
+        // or ft.add(R.id.your_placeholder, new FooFragment());
+        // Complete the changes added above
+        ft.commit();
+    }
+
+    public void saveData(String word, String id) {
+        Word setWord = new Word(word, null, id, null, null);
         listViewModel.insert(setWord);
     }
 }

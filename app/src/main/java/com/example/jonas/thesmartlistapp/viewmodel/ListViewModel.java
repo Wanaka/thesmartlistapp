@@ -22,6 +22,10 @@ public class ListViewModel extends AndroidViewModel {
         return mRepository.getAllLists(list);
     }
 
+    public LiveData<List<Word>> getCategory(String category) {
+        return mRepository.getCategory(category);
+    }
+
     public LiveData<List<Word>> getList(String id) {
         return mRepository.getList(id);
     }

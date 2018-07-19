@@ -2,14 +2,12 @@ package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
@@ -17,17 +15,21 @@ import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
-public class CreateListActivity extends AppCompatActivity{
+public class CreateCategoryActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Toolbar toolbar;
-    private Button createButton, closebutton;
-    private EditText listName;
+    Button mAddCategory;
+    EditText mCategoryText;
     private ListViewModel listViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mAddCategory = findViewById(R.id.category_button);
+        mAddCategory.setOnClickListener(this);
+        setContentView(R.layout.activity_create_category);
         setContentView(R.layout.activity_create_list);
         toolbar = findViewById(R.id.listToolbar);
         toolbar.setTitle(R.string.create_list_title);
@@ -35,32 +37,22 @@ public class CreateListActivity extends AppCompatActivity{
 
         listViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
 
-        createButton = findViewById(R.id.create);
-        closebutton = findViewById(R.id.closeButton);
-        listName = findViewById(R.id.inputListName);
 
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(listName.getText().toString().isEmpty()){
-                    Toaster.showLongToastMethod(getApplicationContext(), getString(R.string.toast_enter_name));
-                } else {
-                    saveData(listName.getText().toString());
-                }
-            }
-        });
-        closebutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+        mCategoryText = findViewById(R.id.category_text);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.category_button){
+            saveData(mCategoryText.getText().toString());
+            finish();
+        }
     }
 
     public void saveData(String word){
-        Word setWord = new Word(word, Constants.LIST, null, null, null);
+        Word setWord = new Word(word, null, null, Constants.CATEGORY, null);
         listViewModel.insert(setWord);
-        Intent intent = new Intent(this, MainListActivity.class);
-        startActivity(intent);
     }
 }

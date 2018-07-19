@@ -26,6 +26,10 @@ public class Repository {
         return mWordDao.getAllWords(list);
     }
 
+    public LiveData<List<Word>> getCategory(String category) {
+        return mWordDao.getCategory(category);
+    }
+
     public LiveData<List<Word>> getList(String id) {
         return mWordDao.getList(id);
     }
