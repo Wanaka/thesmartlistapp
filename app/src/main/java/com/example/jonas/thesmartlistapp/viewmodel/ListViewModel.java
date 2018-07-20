@@ -3,6 +3,7 @@ package com.example.jonas.thesmartlistapp.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.repository.Repository;
@@ -33,4 +34,9 @@ public class ListViewModel extends AndroidViewModel {
     public void insert(Word word) {
         mRepository.insert(word);
     }
+
+    public LiveData<List<String>> getColors(Context context) {
+        return mRepository.getColor(context);
+    }
+
 }

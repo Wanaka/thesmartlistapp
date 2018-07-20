@@ -1,5 +1,6 @@
 package com.example.jonas.thesmartlistapp.fragment;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -7,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.ActivityChooserView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +18,8 @@ import android.view.ViewGroup;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
+import com.example.jonas.thesmartlistapp.activity.SubListActivity;
+import com.example.jonas.thesmartlistapp.adapter.ColorAdapter;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
 import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
@@ -23,7 +28,7 @@ import java.util.List;
 
 public class ColorFragment extends Fragment {
 
-    RecyclerViewAdapter adapter;
+    ColorAdapter adapter;
     private ListViewModel listViewModel;
 
     public ColorFragment() {
@@ -44,14 +49,15 @@ public class ColorFragment extends Fragment {
 
         // set up the RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.colorRV);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new RecyclerViewAdapter(getActivity());
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),Constants.SPAN_COUNT));
+        adapter = new ColorAdapter(getActivity());
+        adapter.setClickListener(null);
         recyclerView.setAdapter(adapter);
 
-        listViewModel.getCategory(Constants.CATEGORY).observe(this, new Observer<List<Word>>() {
+        listViewModel.getColors(getContext()).observe(this, new Observer<List<String>>() {
             @Override
-            public void onChanged(@Nullable final List<Word> words) {
-                adapter.setWords(words);
+            public void onChanged(@Nullable List<String> list) {
+                adapter.setColors(list);
             }
         });
 

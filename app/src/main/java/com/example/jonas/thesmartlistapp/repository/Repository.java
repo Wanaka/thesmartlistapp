@@ -3,11 +3,16 @@ package com.example.jonas.thesmartlistapp.repository;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.DAO.WordDao;
 import com.example.jonas.thesmartlistapp.DAO.WordRoomDatabase;
+import com.example.jonas.thesmartlistapp.R;
+import com.example.jonas.thesmartlistapp.helper.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,5 +57,19 @@ public class Repository {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }
+    }
+
+    // Color DB
+    public LiveData<List<String>> getColor(Context context){
+        MutableLiveData<List<String>> fruitList = new MutableLiveData<>();
+        List<String> fruitsStringList = new ArrayList<>();
+        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorBlueMain)));
+        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorBlueHighlited)));
+        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorBlack)));
+        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorPrimary)));
+        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorWhite)));
+        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorAccent)));
+        fruitList.setValue(fruitsStringList);
+        return fruitList;
     }
 }
