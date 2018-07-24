@@ -21,6 +21,7 @@ import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
 import com.example.jonas.thesmartlistapp.constants.Constants;
+import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
 import java.util.ArrayList;
@@ -76,7 +77,6 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         mBundle.putString("id",String.valueOf(adapter.getItem(position).getId()));
         intent.putExtras(mBundle);
         startActivity(intent);
-        //Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override

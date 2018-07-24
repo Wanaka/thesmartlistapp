@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.fragment.CategoryFragment;
 import com.example.jonas.thesmartlistapp.fragment.ColorFragment;
+import com.example.jonas.thesmartlistapp.helper.Color;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
@@ -68,4 +70,5 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
         ft.replace(R.id.your_placeholder, new ColorFragment());
         ft.commit();
     }
+
 }

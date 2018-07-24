@@ -60,15 +60,18 @@ public class Repository {
     }
 
     // Color DB
-    public LiveData<List<String>> getColor(Context context){
-        MutableLiveData<List<String>> fruitList = new MutableLiveData<>();
-        List<String> fruitsStringList = new ArrayList<>();
-        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorBlueMain)));
-        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorBlueHighlited)));
-        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorBlack)));
-        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorPrimary)));
-        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorWhite)));
-        fruitsStringList.add(String.valueOf(ContextCompat.getColor(context, R.color.colorAccent)));
+    public LiveData<List<Word>> getColor(Context context){
+        MutableLiveData<List<Word>> fruitList = new MutableLiveData<>();
+        List<Word> fruitsStringList = new ArrayList<>();
+
+        //The colors are in strings and not from resources because it didnt work, got weird numbers instead...
+        //String.valueOf(ContextCompat.getColor(context, R.color.colorAccent)
+        fruitsStringList.add(new Word("#7ab2f9" ,null ,null ,null ,null));
+        fruitsStringList.add(new Word("#62a7fc" ,null ,null ,null ,null));
+        fruitsStringList.add(new Word("#000000" ,null ,null ,null ,null));
+        fruitsStringList.add(new Word("#3f51b5" ,null ,null ,null ,null));
+        fruitsStringList.add(new Word("#FFFFFF" ,null ,null ,null ,null));
+        fruitsStringList.add(new Word("#ff4081" ,null ,null ,null ,null));
         fruitList.setValue(fruitsStringList);
         return fruitList;
     }

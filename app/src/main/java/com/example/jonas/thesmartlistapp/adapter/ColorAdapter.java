@@ -1,6 +1,7 @@
 package com.example.jonas.thesmartlistapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,16 +20,16 @@ import java.util.List;
 public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> {
 
 
-    private List<String> mColors;
+    private List<Word> mColors;
     private LayoutInflater mInflater;
-    private RecyclerViewAdapter.ItemClickListener mClickListener;
+    private ItemClickListener mClickListener;
 
     // data is passed into the constructor
     public ColorAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
     }
 
-    public void setColors(List<String> colors){
+    public void setColors(List<Word> colors){
         mColors = colors;
         notifyDataSetChanged();
     }
@@ -37,15 +38,15 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.color_recyclerview_row, parent, false);
-        return new ColorAdapter.ViewHolder(view);
+        return new ColorAdapter.ViewHolder(view, mClickListener);
     }
 
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        String colorData = mColors.get(position);
-        holder.img.setColorFilter(Integer.valueOf(colorData));
+        Word colorData = mColors.get(position);
+        holder.img.setColorFilter(Color.parseColor(colorData.getWord().toString()));
     }
 
     // total number of rows
@@ -60,13 +61,13 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
-        return mColors.get(id);
+    public String getItem(int pos) {
+        return mColors.get(pos).getWord();
     }
 
     // allows clicks events to be caught
-    public void setClickListener(ColorAdapter.ItemClickListener itemClickListener) {
-        this.mClickListener = (RecyclerViewAdapter.ItemClickListener) itemClickListener;
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
     }
 
     // parent activity will implement this method to respond to click events
@@ -74,15 +75,16 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
         void onItemClick(View view, int position);
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView img;
 
-        ViewHolder(final View itemView) {
+        ViewHolder(final View itemView, ItemClickListener clickListener) {
             super(itemView);
             img = itemView.findViewById(R.id.c_img);
+            mClickListener = clickListener;
+            itemView.setOnClickListener(this);
         }
 
         @Override

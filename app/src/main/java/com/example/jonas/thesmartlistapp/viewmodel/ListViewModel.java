@@ -35,7 +35,7 @@ public class ListViewModel extends AndroidViewModel {
         mRepository.insert(word);
     }
 
-    public LiveData<List<String>> getColors(Context context) {
+    public LiveData<List<Word>> getColors(Context context) {
         return mRepository.getColor(context);
     }
 
