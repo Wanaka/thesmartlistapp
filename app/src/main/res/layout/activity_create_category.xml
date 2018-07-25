@@ -60,8 +60,7 @@
         android:clickable="true"
         app:backgroundTint="@android:color/holo_orange_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/category_text"
-        app:srcCompat="@android:color/holo_orange_light" />
+        app:layout_constraintTop_toTopOf="@+id/category_text" />
 
     <FrameLayout
         android:id="@+id/your_placeholder"

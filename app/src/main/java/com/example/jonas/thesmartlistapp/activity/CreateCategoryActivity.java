@@ -2,8 +2,10 @@ package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +23,7 @@ import com.example.jonas.thesmartlistapp.helper.Color;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
-public class CreateCategoryActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateCategoryActivity extends AppCompatActivity implements View.OnClickListener, ColorFragment.ActivityCommunicator {
 
     private Toolbar toolbar;
     Button mAddCategory;
@@ -71,4 +73,10 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
         ft.commit();
     }
 
+
+    @Override
+    public void passDataToActivity(View view, int position) {
+       // Toaster.showShortToastMethod(view.getContext(), position);
+        mColorButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), position)));
+    }
 }

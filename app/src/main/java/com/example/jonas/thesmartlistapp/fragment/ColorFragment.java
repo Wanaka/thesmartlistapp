@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ public class ColorFragment extends Fragment implements ColorAdapter.ItemClickLis
 
     ColorAdapter adapter;
     private ListViewModel listViewModel;
+    private ActivityCommunicator activityCommunicator;
 
     public ColorFragment() {
     }
@@ -69,6 +71,7 @@ public class ColorFragment extends Fragment implements ColorAdapter.ItemClickLis
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        activityCommunicator =(ActivityCommunicator)context;
     }
 
     @Override
@@ -76,9 +79,16 @@ public class ColorFragment extends Fragment implements ColorAdapter.ItemClickLis
         super.onDetach();
     }
 
+    //send data to parent activity
+    public interface ActivityCommunicator{
+        void passDataToActivity(View view, int color);
+    }
+
     @Override
     public void onItemClick(View view, int position) {
-        Toaster.showShortToastMethod(view.getContext(), adapter.getItem(position));
+        //set color!!! adapter.getItem(position)
+        activityCommunicator.passDataToActivity(view, com.example.jonas.thesmartlistapp.helper.Color.getColors(position));
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
 }
