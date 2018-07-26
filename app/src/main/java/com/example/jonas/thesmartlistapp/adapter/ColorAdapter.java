@@ -1,8 +1,10 @@
 package com.example.jonas.thesmartlistapp.adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +47,8 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Word colorData = mColors.get(position);
-        holder.img.setColorFilter(Color.parseColor(colorData.getWord().toString()));
+        //Word colorData = mColors.get(position);
+        holder.img.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.getContext(), com.example.jonas.thesmartlistapp.helper.Color.getColors(position))));
     }
 
     // total number of rows
@@ -78,13 +80,13 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ViewHolder> 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        ImageView img;
+        FloatingActionButton img;
 
         ViewHolder(final View itemView, ItemClickListener clickListener) {
             super(itemView);
             img = itemView.findViewById(R.id.c_img);
             mClickListener = clickListener;
-            itemView.setOnClickListener(this);
+            img.setOnClickListener(this);
         }
 
         @Override

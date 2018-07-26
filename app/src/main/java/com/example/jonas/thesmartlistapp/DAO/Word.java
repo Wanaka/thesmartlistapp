@@ -7,9 +7,6 @@ import android.support.annotation.NonNull;
 
 import com.example.jonas.thesmartlistapp.constants.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity(tableName = "word_table")
 public class Word {
 
@@ -36,12 +33,21 @@ public class Word {
     @ColumnInfo(name = "categoryId")
     private String mCategoryId;
 
-    public Word(@NonNull String word, String list, String ownerId, String category, String categoryId) {
+    //If a category has an color
+    @ColumnInfo(name = "colorCategory")
+    private int mColorCategory;
+
+    //If an item has an color
+    @ColumnInfo(name = "colorItem")
+    private int mColorItem;
+
+    public Word(@NonNull String word, String list, String ownerId, String category, String categoryId, int colorCategory) {
         this.mWord = word;
         this.mList = list;
         this.mOwnerId = ownerId;
         this.mCategory = category;
         this.mCategoryId = categoryId;
+        this.mColorCategory = colorCategory;
     }
 
     public String getWord(){return this.mWord;}
@@ -84,5 +90,21 @@ public class Word {
 
     public void setCategoryId(String mCategoryId) {
         this.mCategoryId = mCategoryId;
+    }
+
+    public int getColorCategory() {
+        return mColorCategory;
+    }
+
+    public void setColorCategory(int colorCategory) {
+        this.mColorCategory = colorCategory;
+    }
+
+    public int getColorItem() {
+        return mColorItem;
+    }
+
+    public void setColorItem(int mColorItem) {
+        this.mColorItem = mColorItem;
     }
 }

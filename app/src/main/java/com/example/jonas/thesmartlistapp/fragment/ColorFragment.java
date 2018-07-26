@@ -86,8 +86,7 @@ public class ColorFragment extends Fragment implements ColorAdapter.ItemClickLis
 
     @Override
     public void onItemClick(View view, int position) {
-        //set color!!! adapter.getItem(position)
-        activityCommunicator.passDataToActivity(view, com.example.jonas.thesmartlistapp.helper.Color.getColors(position));
+        activityCommunicator.passDataToActivity(view, position);
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 

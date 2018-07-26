@@ -98,7 +98,7 @@ public class SubListActivity extends AppCompatActivity {
     }
 
     public void saveData(String word, String id) {
-        Word setWord = new Word(word, null, id, null, null);
+        Word setWord = new Word(word, null, id, null, null, 0);
         listViewModel.insert(setWord);
     }
 }

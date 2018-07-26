@@ -1,6 +1,9 @@
 package com.example.jonas.thesmartlistapp.adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
+import com.example.jonas.thesmartlistapp.helper.Color;
+import com.example.jonas.thesmartlistapp.helper.Toaster;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +46,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         Word textData = mData.get(position);
         holder.myTextView.setText(textData.getWord());
+        holder.mCategoryColor.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.getContext(), com.example.jonas.thesmartlistapp.helper.Color.getColors(textData.getColorCategory()))));
+
     }
 
     // total number of rows
@@ -75,10 +82,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
+        FloatingActionButton mCategoryColor;
+
 
         ViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.tvListName);
+            mCategoryColor = itemView.findViewById(R.id.category_color_rv_fab);
             itemView.setOnClickListener(this);
         }
 

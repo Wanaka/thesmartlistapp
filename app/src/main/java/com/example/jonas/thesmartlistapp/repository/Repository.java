@@ -66,12 +66,16 @@ public class Repository {
 
         //The colors are in strings and not from resources because it didnt work, got weird numbers instead...
         //String.valueOf(ContextCompat.getColor(context, R.color.colorAccent)
-        fruitsStringList.add(new Word("#7ab2f9" ,null ,null ,null ,null));
-        fruitsStringList.add(new Word("#62a7fc" ,null ,null ,null ,null));
-        fruitsStringList.add(new Word("#000000" ,null ,null ,null ,null));
-        fruitsStringList.add(new Word("#3f51b5" ,null ,null ,null ,null));
-        fruitsStringList.add(new Word("#FFFFFF" ,null ,null ,null ,null));
-        fruitsStringList.add(new Word("#ff4081" ,null ,null ,null ,null));
+
+        fruitsStringList.add(new Word("#0" ,null ,null ,null ,null, 0));
+        fruitsStringList.add(new Word("#1" ,null ,null ,null ,null, 0));
+        fruitsStringList.add(new Word("#2" ,null ,null ,null ,null, 0));
+        fruitsStringList.add(new Word("#3" ,null ,null ,null ,null, 0));
+        fruitsStringList.add(new Word("#4" ,null ,null ,null ,null, 0));
+        fruitsStringList.add(new Word("#5" ,null ,null ,null ,null, 0));
+        fruitsStringList.add(new Word("#6" ,null ,null ,null ,null, 0));
+        fruitsStringList.add(new Word("#7" ,null ,null ,null ,null, 0));
+
         fruitList.setValue(fruitsStringList);
         return fruitList;
     }

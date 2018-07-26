@@ -58,7 +58,7 @@ public class CreateListActivity extends AppCompatActivity{
     }
 
     public void saveData(String word){
-        Word setWord = new Word(word, Constants.LIST, null, null, null);
+        Word setWord = new Word(word, Constants.LIST, null, null, null, 0);
         listViewModel.insert(setWord);
         Intent intent = new Intent(this, MainListActivity.class);
         startActivity(intent);

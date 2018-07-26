@@ -30,6 +30,7 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
     FloatingActionButton mColorButton;
     EditText mCategoryText;
     private ListViewModel listViewModel;
+    private int color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
     }
 
     public void saveData(String word) {
-        Word setWord = new Word(word, null, null, Constants.CATEGORY, null);
+        Word setWord = new Word(word, null, null, Constants.CATEGORY, null, color);
         listViewModel.insert(setWord);
     }
 
@@ -77,6 +78,7 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
     @Override
     public void passDataToActivity(View view, int position) {
        // Toaster.showShortToastMethod(view.getContext(), position);
-        mColorButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), position)));
+        mColorButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), Color.getColors(position))));
+        color = position;
     }
 }

@@ -40,8 +40,7 @@
         android:clickable="true"
         app:backgroundTint="@android:color/holo_orange_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/add_item_text"
-        app:srcCompat="@android:color/holo_orange_light" />
+        app:layout_constraintTop_toTopOf="@+id/add_item_text" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_item_button"
