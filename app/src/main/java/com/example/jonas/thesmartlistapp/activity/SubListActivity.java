@@ -2,11 +2,13 @@ package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,15 +21,23 @@ import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
 import com.example.jonas.thesmartlistapp.fragment.CategoryFragment;
+import com.example.jonas.thesmartlistapp.helper.Color;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class SubListActivity extends AppCompatActivity {
+public class SubListActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener, CategoryFragment.ActivityCommunicator {
 
     private Toolbar toolbar;
-    RecyclerViewAdapter adapterVertical, adapter2;
+    private RecyclerViewAdapter adapterVertical, adapter2;
+    private String mCategoryId;
+    private int mCategoryColor;
+
     private ListViewModel listViewModel;
     FloatingActionButton mAddItemButton, mCategoryButton;
     EditText addItemText;
@@ -53,6 +63,8 @@ public class SubListActivity extends AppCompatActivity {
         RecyclerView verticalRecyclerView = findViewById(R.id.verticalRV);
         verticalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapterVertical = new RecyclerViewAdapter(this);
+        adapterVertical.setClickListener(this);
+
         verticalRecyclerView.setAdapter(adapterVertical);
 
         /*
@@ -67,6 +79,13 @@ public class SubListActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<Word> words) {
                 // Update the cached copy of the words in the adapter.
+                Collections.sort(words, new Comparator<Word>() {
+                    @Override
+                    public int compare(Word c1, Word c2) {
+                        //You should ensure that list doesn't contain null values!
+                        return c1.getCategoryId().compareTo(c2.getCategoryId());
+                    }
+                });
                 adapterVertical.setWords(words);
                 //adapter2.setWords(words);
             }
@@ -98,7 +117,23 @@ public class SubListActivity extends AppCompatActivity {
     }
 
     public void saveData(String word, String id) {
-        Word setWord = new Word(word, null, id, null, null, 0);
+        Word setWord = new Word(word, null, id, null, mCategoryId, mCategoryColor);
         listViewModel.insert(setWord);
     }
+
+    @Override
+    public void onItemClick(View view, int position, Word word) {
+        Toaster.showShortToastMethod(view.getContext(), word.getWord());
+        startCategoryFragment();
+
+    }
+
+    @Override
+    public void passDataToActivity(View view, Word word) {
+        mCategoryId = word.getWord();
+        mCategoryColor = word.getColorCategory();
+        mCategoryButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), Color.getColors(word.getColorCategory()))));
+    }
+
+
 }

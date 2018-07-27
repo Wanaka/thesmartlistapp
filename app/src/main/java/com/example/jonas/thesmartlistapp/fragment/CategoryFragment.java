@@ -29,12 +29,13 @@ import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements View.OnClickListener {
+public class CategoryFragment extends Fragment implements View.OnClickListener, RecyclerViewAdapter.ItemClickListener {
 
-    FragmentActivity listener;
     Button mAddNewItemButton, mCloseButton;
     RecyclerViewAdapter adapter;
     private ListViewModel listViewModel;
+    private ActivityCommunicator activityCommunicator;
+
 
     public CategoryFragment() {
     }
@@ -61,6 +62,9 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         RecyclerView recyclerView = rootView.findViewById(R.id.categoryRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecyclerViewAdapter(getActivity());
+
+        adapter.setClickListener(this);
+
         recyclerView.setAdapter(adapter);
 
         listViewModel.getCategory(Constants.CATEGORY).observe(this, new Observer<List<Word>>() {
@@ -87,16 +91,25 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof Activity){
-            this.listener = (FragmentActivity) context;
-        }
+        activityCommunicator =(ActivityCommunicator)context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        this.listener = null;
     }
+
+
+    //send data to parent activity
+    public interface ActivityCommunicator{
+        void passDataToActivity(View view, Word word);
+    }
+
+
+    @Override
+    public void onItemClick(View view, int position, Word word) {
+        activityCommunicator.passDataToActivity(view, word);
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();    }
 
     public interface OnFragmentInteractionListener {
     }

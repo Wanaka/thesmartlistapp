@@ -70,7 +70,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
     }
 
     @Override
-    public void onItemClick(View view, int position) {
+    public void onItemClick(View view, int position, Word word) {
         Intent intent = new Intent(this, SubListActivity.class);
         Bundle mBundle = new Bundle();
         mBundle.putString("list_title",adapter.getItem(position).getWord().toString());
@@ -88,4 +88,5 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         Intent intent = new Intent(this, CreateListActivity.class);
         startActivity(intent);
     }
+
 }

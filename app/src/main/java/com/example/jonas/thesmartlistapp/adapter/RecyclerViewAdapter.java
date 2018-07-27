@@ -16,6 +16,7 @@ import com.example.jonas.thesmartlistapp.helper.Color;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
@@ -23,6 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<Word> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    Word textData;
 
     // data is passed into the constructor
     public RecyclerViewAdapter(Context context) {
@@ -44,10 +46,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Word textData = mData.get(position);
+        textData = mData.get(position);
         holder.myTextView.setText(textData.getWord());
         holder.mCategoryColor.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.getContext(), com.example.jonas.thesmartlistapp.helper.Color.getColors(textData.getColorCategory()))));
-
     }
 
     // total number of rows
@@ -74,9 +75,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, int position, Word word);
     }
-
 
 
     // stores and recycles views as they are scrolled off screen
@@ -90,11 +90,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             myTextView = itemView.findViewById(R.id.tvListName);
             mCategoryColor = itemView.findViewById(R.id.category_color_rv_fab);
             itemView.setOnClickListener(this);
+            mCategoryColor.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition(), mData.get(getAdapterPosition()));
         }
     }
 }
