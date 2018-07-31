@@ -26,7 +26,7 @@ import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 public class CreateCategoryActivity extends AppCompatActivity implements View.OnClickListener, ColorFragment.ActivityCommunicator {
 
     private Toolbar toolbar;
-    Button mAddCategory;
+    Button mAddCategory, closeCreateCategory;
     FloatingActionButton mColorButton;
     EditText mCategoryText;
     private ListViewModel listViewModel;
@@ -45,8 +45,10 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
         mCategoryText = findViewById(R.id.category_text);
         mAddCategory = findViewById(R.id.category_button);
         mColorButton = findViewById(R.id.category_chose_color);
+        closeCreateCategory = findViewById(R.id.category_close);
         mAddCategory.setOnClickListener(this);
         mColorButton.setOnClickListener(this);
+        closeCreateCategory.setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +62,8 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
             }
         } else if(v.getId() == R.id.category_chose_color){
             startColorFragment();
+        } else if(v.getId() == R.id.category_close){
+            finish();
         }
     }
 

@@ -20,6 +20,7 @@ import android.widget.EditText;
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
+import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.fragment.CategoryFragment;
 import com.example.jonas.thesmartlistapp.helper.Color;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
@@ -34,7 +35,7 @@ import java.util.List;
 public class SubListActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener, CategoryFragment.ActivityCommunicator {
 
     private Toolbar toolbar;
-    private RecyclerViewAdapter adapterVertical, adapter2;
+    private RecyclerViewAdapter adapterVertical;
     private String mCategoryId;
     private int mCategoryColor;
 
@@ -117,6 +118,10 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
     }
 
     public void saveData(String word, String id) {
+        if(mCategoryId == null){
+            mCategoryId = Constants.DEFAULT_CATEGORY;
+            mCategoryColor = Constants.DEFAULT_CATEGORY_NUMBER;
+        }
         Word setWord = new Word(word, null, id, null, mCategoryId, mCategoryColor);
         listViewModel.insert(setWord);
     }

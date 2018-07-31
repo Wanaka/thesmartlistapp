@@ -38,7 +38,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
-        app:backgroundTint="@android:color/holo_orange_light"
+        app:backgroundTint="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/add_item_text" />
 
@@ -49,20 +49,9 @@
         android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
-        android:tint="@color/colorWhite"
-        app:backgroundTint="@android:color/holo_green_dark"
+        app:backgroundTint="@color/colorBlueMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/add_item_text"
-        app:srcCompat="@drawable/ic_add" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/horizontalRV"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_item_text" />
+        app:layout_constraintTop_toTopOf="@+id/add_item_text" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/verticalRV"
@@ -72,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalRV" />
+        app:layout_constraintTop_toBottomOf="@+id/add_item_text" />
 
     <FrameLayout
         android:id="@+id/your_placeholder"
