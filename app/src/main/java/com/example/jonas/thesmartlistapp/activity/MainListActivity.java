@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -67,6 +68,26 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
                 adapter.setWords(words);
             }
         });
+
+        final ItemTouchHelper.SimpleCallback helper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                if (direction == ItemTouchHelper.LEFT) {
+                    int position = viewHolder.getAdapterPosition();
+                    Word myWord = adapter.getWordAtPosition(position);
+                    listViewModel.deleteCategoryWords(myWord.getWord());
+                    listViewModel.deleteWord(myWord);
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -74,7 +95,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         Intent intent = new Intent(this, SubListActivity.class);
         Bundle mBundle = new Bundle();
         mBundle.putString("list_title",adapter.getItem(position).getWord().toString());
-        mBundle.putString("id",String.valueOf(adapter.getItem(position).getId()));
+        mBundle.putString("id",String.valueOf(adapter.getItem(position).getWord())); //adapter.getItem(position).getId()
         intent.putExtras(mBundle);
         startActivity(intent);
     }

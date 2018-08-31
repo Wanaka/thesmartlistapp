@@ -23,6 +23,9 @@ public interface WordDao {
     @Delete
     void deleteWord(Word word);
 
+    @Query("DELETE from word_table WHERE ownerId = :id")
+    void deleteCategoryWords(String id);
+
     @Update
     void updateUsers(Word... word);
 

@@ -124,7 +124,6 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
                 if (direction == ItemTouchHelper.LEFT) {
                     int position = viewHolder.getAdapterPosition();
                     Word myWord = adapterVertical.getWordAtPosition(position);
-                    Toaster.showShortToastMethod(getApplication(), "SWIPEED!");
                     listViewModel.deleteWord(myWord);
                 }
             }
@@ -151,7 +150,7 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
 
     @Override
     public void onItemClick(View view, int position, Word word) {
-        Toaster.showShortToastMethod(view.getContext(), word.getWord());
+        Toaster.showShortToastMethod(view.getContext(), word.getOwnerId());
     }
 
     @Override
@@ -160,6 +159,4 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
         mCategoryColor = word.getColorCategory();
         mCategoryButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), Color.getColors(word.getColorCategory()))));
     }
-
-
 }
