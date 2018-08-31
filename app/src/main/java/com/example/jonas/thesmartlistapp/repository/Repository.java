@@ -43,7 +43,11 @@ public class Repository {
         new insertAsyncTask(mWordDao).execute(word);
     }
 
+    public void deleteWord(Word word)  {
+        new deleteWordAsyncTask(mWordDao).execute(word);
+    }
 
+    //Add a word
     private static class insertAsyncTask extends AsyncTask<Word, Void, Void> {
 
         private WordDao mAsyncTaskDao;
@@ -59,14 +63,31 @@ public class Repository {
         }
     }
 
-    // Color DB
+    //Delete a word
+    private static class deleteWordAsyncTask extends AsyncTask<Word, Void, Void> {
+        private WordDao mAsyncTaskDao;
+
+        deleteWordAsyncTask(WordDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Word... params) {
+            mAsyncTaskDao.deleteWord(params[0]);
+            return null;
+        }
+    }
+
+
+
+
+    // ***** Color DB *****
     public LiveData<List<Word>> getColor(Context context){
         MutableLiveData<List<Word>> fruitList = new MutableLiveData<>();
         List<Word> fruitsStringList = new ArrayList<>();
 
         //The colors are in strings and not from resources because it didnt work, got weird numbers instead...
         //String.valueOf(ContextCompat.getColor(context, R.color.colorAccent)
-
         fruitsStringList.add(new Word("#0" ,null ,null ,null ,null, 0));
         fruitsStringList.add(new Word("#1" ,null ,null ,null ,null, 0));
         fruitsStringList.add(new Word("#2" ,null ,null ,null ,null, 0));

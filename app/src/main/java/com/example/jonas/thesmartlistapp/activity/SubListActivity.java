@@ -1,6 +1,7 @@
 package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
 
@@ -35,7 +37,6 @@ import java.util.List;
 public class SubListActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener, CategoryFragment.ActivityCommunicator {
 
     private Toolbar toolbar;
-    private RecyclerViewAdapter adapterVertical;
     private String mCategoryId;
     private int mCategoryColor;
 
@@ -62,11 +63,12 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
 
 
         RecyclerView verticalRecyclerView = findViewById(R.id.verticalRV);
+        final RecyclerViewAdapter adapterVertical = new RecyclerViewAdapter(this);
+        verticalRecyclerView.setAdapter(adapterVertical);
+
         verticalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapterVertical = new RecyclerViewAdapter(this);
         adapterVertical.setClickListener(this);
 
-        verticalRecyclerView.setAdapter(adapterVertical);
 
         /*
         RecyclerView horizontalRecyclerView = findViewById(R.id.horizontalRV);
@@ -103,12 +105,33 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
                 }
             }
         });
+
         mCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startCategoryFragment();
             }
         });
+
+        final ItemTouchHelper.SimpleCallback helper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                if (direction == ItemTouchHelper.LEFT) {
+                    int position = viewHolder.getAdapterPosition();
+                    Word myWord = adapterVertical.getWordAtPosition(position);
+                    Toaster.showShortToastMethod(getApplication(), "SWIPEED!");
+                    listViewModel.deleteWord(myWord);
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helper);
+        itemTouchHelper.attachToRecyclerView(verticalRecyclerView);
     }
 
     public void startCategoryFragment() {
@@ -129,8 +152,6 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
     @Override
     public void onItemClick(View view, int position, Word word) {
         Toaster.showShortToastMethod(view.getContext(), word.getWord());
-        startCategoryFragment();
-
     }
 
     @Override

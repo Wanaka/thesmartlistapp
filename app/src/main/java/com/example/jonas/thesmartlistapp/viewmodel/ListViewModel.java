@@ -35,6 +35,8 @@ public class ListViewModel extends AndroidViewModel {
         mRepository.insert(word);
     }
 
+    public void deleteWord(Word word) {mRepository.deleteWord(word);}
+
     public LiveData<List<Word>> getColors(Context context) {
         return mRepository.getColor(context);
     }

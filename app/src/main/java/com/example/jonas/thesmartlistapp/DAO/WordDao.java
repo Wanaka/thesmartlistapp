@@ -2,6 +2,7 @@ package com.example.jonas.thesmartlistapp.DAO;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -18,6 +19,9 @@ public interface WordDao {
     //delete ALL words at once
     @Query("DELETE FROM word_table")
     void deleteAll();
+
+    @Delete
+    void deleteWord(Word word);
 
     @Update
     void updateUsers(Word... word);
