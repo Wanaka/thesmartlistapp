@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,29 @@ public class CategoryFragment extends Fragment implements View.OnClickListener, 
                 adapter.setWords(words);
             }
         });
+
+        final ItemTouchHelper.SimpleCallback helper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                if (direction == ItemTouchHelper.LEFT) {
+                    int position = viewHolder.getAdapterPosition();
+                    Word myWord = adapter.getWordAtPosition(position);
+
+                    if(myWord.getCategory() != null){
+                        Toaster.showShortToastMethod(getContext(), myWord.getWord());
+                        listViewModel.deleteWord(myWord);
+                    }
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         return rootView;
     }

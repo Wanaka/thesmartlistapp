@@ -82,7 +82,7 @@ public class Repository {
         }
     }
 
-    //Delete a word
+    //Delete list
     private static class deleteCategoryWordsAsyncTask extends AsyncTask<String, Void, Void> {
         private WordDao mAsyncTaskDao;
 
