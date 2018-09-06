@@ -1,13 +1,10 @@
 package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,8 +25,6 @@ import com.example.jonas.thesmartlistapp.helper.Color;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;

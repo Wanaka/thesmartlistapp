@@ -98,8 +98,6 @@ public class Repository {
     }
 
 
-
-
     // ***** Color DB *****
     public LiveData<List<Word>> getColor(Context context){
         MutableLiveData<List<Word>> fruitList = new MutableLiveData<>();
