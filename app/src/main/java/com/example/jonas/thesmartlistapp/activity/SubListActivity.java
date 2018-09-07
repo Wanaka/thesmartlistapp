@@ -2,6 +2,7 @@ package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
@@ -104,6 +106,7 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
         mCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard(v);
                 startCategoryFragment();
             }
         });
@@ -123,7 +126,6 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
                 }
             }
         };
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helper);
         itemTouchHelper.attachToRecyclerView(verticalRecyclerView);
     }
@@ -145,7 +147,15 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
 
     @Override
     public void onItemClick(View view, int position, Word word) {
-        Toaster.showShortToastMethod(view.getContext(), word.getOwnerId());
+        //Toaster.showShortToastMethod(view.getContext(), word.getOwnerId());
+        hideKeyboard(view);
+    }
+
+    public void hideKeyboard(View view){
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(
+                view.getWindowToken(), 0);
     }
 
     @Override

@@ -103,8 +103,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
                 RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
                 p.setColor(Color.RED);
                 c.drawRoundRect(rightButton, corners, corners, p);
-                drawText("Delete", c, rightButton, p);
-
+                drawText(getResources().getString(R.string.delete), c, rightButton, p);
             }
 
             private void drawText(String text, Canvas c, RectF button, Paint p) {
@@ -134,7 +133,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
 
     public void startAlertFragment(Word word) {
         Bundle args = new Bundle();
-        args.putString("word", new Gson().toJson(word));
+        args.putString(Constants.WORD, new Gson().toJson(word));
         FragmentManager fm = getFragmentManager();
         AlertFragment dialogFragment = new AlertFragment ();
         dialogFragment.setArguments(args);
@@ -145,8 +144,8 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
     public void onItemClick(View view, int position, Word word) {
         Intent intent = new Intent(this, SubListActivity.class);
         Bundle mBundle = new Bundle();
-        mBundle.putString("list_title",adapter.getItem(position).getWord().toString());
-        mBundle.putString("id",String.valueOf(adapter.getItem(position).getWord())); //adapter.getItem(position).getId()
+        mBundle.putString(Constants.LIST_TITLE, adapter.getItem(position).getWord().toString());
+        mBundle.putString(Constants.ID, String.valueOf(adapter.getItem(position).getWord())); //adapter.getItem(position).getId()
         intent.putExtras(mBundle);
         startActivity(intent);
     }

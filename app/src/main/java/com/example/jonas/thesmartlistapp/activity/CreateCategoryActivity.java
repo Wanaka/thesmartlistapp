@@ -1,6 +1,7 @@
 package com.example.jonas.thesmartlistapp.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -62,9 +64,17 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
             }
         } else if(v.getId() == R.id.category_chose_color){
             startColorFragment();
+            hideKeyboard(v);
         } else if(v.getId() == R.id.category_close){
             finish();
         }
+    }
+
+    public void hideKeyboard(View view){
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(
+                view.getWindowToken(), 0);
     }
 
     public void saveData(String word) {
