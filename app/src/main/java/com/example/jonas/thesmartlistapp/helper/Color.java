@@ -24,9 +24,9 @@ public class Color {
             case 5:
                 return R.color.colorPurple;
             case 6:
-                return R.color.colorWhite;
-            case 7:
                 return R.color.colorGreen;
+            case 7:
+                return R.color.colorWhite;
         }
         return 0;
     }

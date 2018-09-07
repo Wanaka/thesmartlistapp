@@ -58,7 +58,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
-        app:backgroundTint="@android:color/holo_orange_light"
+        app:backgroundTint="@color/colorYellow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/category_text" />
 

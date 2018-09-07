@@ -26,6 +26,7 @@ import com.example.jonas.thesmartlistapp.activity.CreateListActivity;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
 import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
+import com.example.jonas.thesmartlistapp.singleton.DefaultWhiteCategory;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
 import java.util.List;
@@ -36,7 +37,6 @@ public class CategoryFragment extends Fragment implements View.OnClickListener, 
     RecyclerViewAdapter adapter;
     private ListViewModel listViewModel;
     private ActivityCommunicator activityCommunicator;
-
 
     public CategoryFragment() {
     }
@@ -63,15 +63,15 @@ public class CategoryFragment extends Fragment implements View.OnClickListener, 
         RecyclerView recyclerView = rootView.findViewById(R.id.categoryRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecyclerViewAdapter(getActivity());
-
         adapter.setClickListener(this);
-
         recyclerView.setAdapter(adapter);
 
         listViewModel.getCategory(Constants.CATEGORY).observe(this, new Observer<List<Word>>() {
             @Override
             public void onChanged(@Nullable final List<Word> words) {
-                // Update the cached copy of the words in the adapter.
+                if(words.isEmpty()){
+                    listViewModel.insert(DefaultWhiteCategory.getInstance().GetWhiteCategory());
+                }
                 adapter.setWords(words);
             }
         });

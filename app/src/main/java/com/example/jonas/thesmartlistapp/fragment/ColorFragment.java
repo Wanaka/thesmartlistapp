@@ -89,5 +89,4 @@ public class ColorFragment extends Fragment implements ColorAdapter.ItemClickLis
         activityCommunicator.passDataToActivity(view, position);
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
-
 }

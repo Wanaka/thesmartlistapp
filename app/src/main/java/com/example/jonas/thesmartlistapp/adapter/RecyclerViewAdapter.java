@@ -56,7 +56,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         if(mData == null){
             List<Word> datalist = new ArrayList<>();
-
             return datalist.size();
         } else {
             return mData.size();

@@ -33,7 +33,7 @@ public class AlertFragment extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 // set dialog icon
-                .setIcon(android.R.drawable.stat_notify_error)
+                /*.setIcon(android.R.drawable.stat_notify_error)*/
                 // set Dialog Title
                 .setTitle(getResources().getString(R.string.deleting) + " " + word.getWord())
                 // Set Dialog Message
