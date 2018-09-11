@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
@@ -48,6 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         textData = mData.get(position);
         holder.myTextView.setText(textData.getWord());
+        holder.categoryTextView.setText(textData.getCategoryId());
         holder.mCategoryColor.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(holder.itemView.getContext(), com.example.jonas.thesmartlistapp.helper.Color.getColors(textData.getColorCategory()))));
     }
 
@@ -84,15 +86,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
-        FloatingActionButton mCategoryColor;
-
+        TextView categoryTextView;
+        ImageView mCategoryColor;
 
         ViewHolder(View itemView) {
             super(itemView);
             myTextView = itemView.findViewById(R.id.tvListName);
-            mCategoryColor = itemView.findViewById(R.id.category_color_rv_fab);
+            categoryTextView = itemView.findViewById(R.id.category_name);
+            mCategoryColor = itemView.findViewById(R.id.category_color_rv);
             itemView.setOnClickListener(this);
-            mCategoryColor.setOnClickListener(this);
         }
 
         @Override

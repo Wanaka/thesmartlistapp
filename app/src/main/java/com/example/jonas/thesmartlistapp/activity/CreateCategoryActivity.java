@@ -61,6 +61,7 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
             } else {
                 saveData(mCategoryText.getText().toString());
                 finish();
+                hideKeyboard(v);
             }
         } else if(v.getId() == R.id.category_chose_color){
             startColorFragment();

@@ -4,6 +4,9 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
@@ -115,6 +118,37 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
+            }
+
+            @Override
+            public void onChildDraw(Canvas c,
+                                    RecyclerView recyclerView,
+                                    RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY,
+                                    int actionState, boolean isCurrentlyActive) {
+                drawButtons(c, viewHolder);
+            }
+            private void drawButtons(Canvas c, RecyclerView.ViewHolder viewHolder) {
+                float buttonWidthWithoutPadding = Constants.BUTTON_WIDTH_DELETE_DRAW - 20;
+                float corners = 0;
+
+                View itemView = viewHolder.itemView;
+                Paint p = new Paint();
+
+                RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
+                p.setColor(android.graphics.Color.RED);
+                c.drawRoundRect(rightButton, corners, corners, p);
+                drawText(getResources().getString(R.string.delete), c, rightButton, p);
+            }
+
+            private void drawText(String text, Canvas c, RectF button, Paint p) {
+                float textSize = 60;
+                p.setColor(android.graphics.Color.WHITE);
+                p.setAntiAlias(true);
+                p.setTextSize(textSize);
+
+                float textWidth = p.measureText(text);
+                c.drawText(text, button.centerX()-(textWidth/2), button.centerY()+(textSize/2), p);
             }
 
             @Override

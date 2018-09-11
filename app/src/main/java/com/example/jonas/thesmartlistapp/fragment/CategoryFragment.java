@@ -5,6 +5,9 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -83,19 +86,52 @@ public class CategoryFragment extends Fragment implements View.OnClickListener, 
             }
 
             @Override
+            public void onChildDraw(Canvas c,
+                                    RecyclerView recyclerView,
+                                    RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY,
+                                    int actionState, boolean isCurrentlyActive) {
+                drawButtons(c, viewHolder);
+            }
+            private void drawButtons(Canvas c, RecyclerView.ViewHolder viewHolder) {
+                float buttonWidthWithoutPadding = Constants.BUTTON_WIDTH_DELETE_DRAW - 20;
+                float corners = 0;
+
+                View itemView = viewHolder.itemView;
+                Paint p = new Paint();
+
+                RectF rightButton = new RectF(itemView.getRight() - buttonWidthWithoutPadding, itemView.getTop(), itemView.getRight(), itemView.getBottom());
+                p.setColor(android.graphics.Color.RED);
+                c.drawRoundRect(rightButton, corners, corners, p);
+                drawText(getResources().getString(R.string.delete), c, rightButton, p);
+            }
+
+            private void drawText(String text, Canvas c, RectF button, Paint p) {
+                float textSize = 60;
+                p.setColor(android.graphics.Color.WHITE);
+                p.setAntiAlias(true);
+                p.setTextSize(textSize);
+
+                float textWidth = p.measureText(text);
+                c.drawText(text, button.centerX()-(textWidth/2), button.centerY()+(textSize/2), p);
+            }
+
+            @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 if (direction == ItemTouchHelper.LEFT) {
                     int position = viewHolder.getAdapterPosition();
                     Word myWord = adapter.getWordAtPosition(position);
 
                     if(myWord.getCategory() != null){
-                        Toaster.showShortToastMethod(getContext(), myWord.getWord());
-                        listViewModel.deleteWord(myWord);
+                        if(myWord.getColorCategory() != 7){
+                            // check if the color is white, only default category can be white.
+                            // This was the easiest way to fix this.
+                            listViewModel.deleteWord(myWord);
+                        }
                     }
                 }
             }
         };
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 

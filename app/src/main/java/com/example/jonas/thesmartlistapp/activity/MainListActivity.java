@@ -44,7 +44,6 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
     private FloatingActionButton createListButton;
     RecyclerViewAdapter adapter;
     private ListViewModel listViewModel;
-    private static final float buttonWidth = 300;
 
 
     @Override
@@ -94,7 +93,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
                 drawButtons(c, viewHolder);
             }
             private void drawButtons(Canvas c, RecyclerView.ViewHolder viewHolder) {
-                float buttonWidthWithoutPadding = buttonWidth - 20;
+                float buttonWidthWithoutPadding = Constants.BUTTON_WIDTH_DELETE_DRAW - 20;
                 float corners = 0;
 
                 View itemView = viewHolder.itemView;
