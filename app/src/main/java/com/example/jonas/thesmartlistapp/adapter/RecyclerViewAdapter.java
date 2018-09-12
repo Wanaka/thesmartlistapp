@@ -2,7 +2,6 @@ package com.example.jonas.thesmartlistapp.adapter;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,11 +12,8 @@ import android.widget.TextView;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
-import com.example.jonas.thesmartlistapp.helper.Color;
-import com.example.jonas.thesmartlistapp.helper.Toaster;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {

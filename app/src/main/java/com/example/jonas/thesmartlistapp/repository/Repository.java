@@ -97,14 +97,12 @@ public class Repository {
         }
     }
 
-
     // ***** Color DB *****
     public LiveData<List<Word>> getColor(Context context){
         MutableLiveData<List<Word>> colorList = new MutableLiveData<>();
         List<Word> colorStringList = new ArrayList<>();
 
         //The colors are in strings and not from resources because it didnt work, got weird numbers instead...
-        //String.valueOf(ContextCompat.getColor(context, R.color.colorAccent)
         colorStringList.add(new Word("#0" ,null ,null ,null ,null, 0));
         colorStringList.add(new Word("#1" ,null ,null ,null ,null, 0));
         colorStringList.add(new Word("#2" ,null ,null ,null ,null, 0));

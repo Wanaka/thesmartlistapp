@@ -3,7 +3,6 @@ package com.example.jonas.thesmartlistapp.helper;
 import com.example.jonas.thesmartlistapp.R;
 
 public class Color {
-    String mColor;
 
     public Color() {
 

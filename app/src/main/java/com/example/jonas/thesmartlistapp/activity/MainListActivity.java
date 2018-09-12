@@ -1,8 +1,6 @@
 package com.example.jonas.thesmartlistapp.activity;
 
 import android.app.FragmentManager;
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -10,10 +8,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,22 +17,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
 import com.example.jonas.thesmartlistapp.constants.Constants;
-import com.example.jonas.thesmartlistapp.fragment.AlertFragment;
-import com.example.jonas.thesmartlistapp.fragment.CategoryFragment;
-import com.example.jonas.thesmartlistapp.helper.Toaster;
+import com.example.jonas.thesmartlistapp.dialog.MyAlertDialog;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class MainListActivity extends AppCompatActivity implements RecyclerViewAdapter.ItemClickListener, View.OnClickListener{
 
@@ -44,7 +34,6 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
     private FloatingActionButton createListButton;
     RecyclerViewAdapter adapter;
     private ListViewModel listViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +47,6 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
 
         listViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
 
-
-        //set rv code
-        // data to populate the RecyclerView with
-
-
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -73,7 +57,6 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         listViewModel.getAllLists(Constants.LIST).observe(this, new Observer<List<Word>>() {
             @Override
             public void onChanged(@Nullable final List<Word> words) {
-                // Update the cached copy of the words in the adapter.
                 adapter.setWords(words);
             }
         });
@@ -125,7 +108,6 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
                 }
             }
         };
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(helper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
@@ -134,9 +116,9 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         Bundle args = new Bundle();
         args.putString(Constants.WORD, new Gson().toJson(word));
         FragmentManager fm = getFragmentManager();
-        AlertFragment dialogFragment = new AlertFragment ();
+        MyAlertDialog dialogFragment = new MyAlertDialog();
         dialogFragment.setArguments(args);
-        dialogFragment.show(fm, "AlertFragment");
+        dialogFragment.show(fm, "MyAlertDialog");
     }
 
     @Override
@@ -144,7 +126,7 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         Intent intent = new Intent(this, SubListActivity.class);
         Bundle mBundle = new Bundle();
         mBundle.putString(Constants.LIST_TITLE, adapter.getItem(position).getWord().toString());
-        mBundle.putString(Constants.ID, String.valueOf(adapter.getItem(position).getWord())); //adapter.getItem(position).getId()
+        mBundle.putString(Constants.ID, String.valueOf(adapter.getItem(position).getWord()));
         intent.putExtras(mBundle);
         startActivity(intent);
     }
@@ -158,5 +140,4 @@ public class MainListActivity extends AppCompatActivity implements RecyclerViewA
         Intent intent = new Intent(this, CreateListActivity.class);
         startActivity(intent);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.jonas.thesmartlistapp.activity;
 
+import android.app.FragmentManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -9,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +27,7 @@ import com.example.jonas.thesmartlistapp.adapter.RecyclerViewAdapter;
 import com.example.jonas.thesmartlistapp.constants.Constants;
 import com.example.jonas.thesmartlistapp.fragment.CategoryFragment;
 import com.example.jonas.thesmartlistapp.helper.Color;
+import com.example.jonas.thesmartlistapp.helper.SortWords;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
 import com.example.jonas.thesmartlistapp.viewmodel.ListViewModel;
 
@@ -61,7 +62,6 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
 
         listViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
 
-
         RecyclerView verticalRecyclerView = findViewById(R.id.verticalRV);
         final RecyclerViewAdapter adapterVertical = new RecyclerViewAdapter(this);
         verticalRecyclerView.setAdapter(adapterVertical);
@@ -69,28 +69,11 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
         verticalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapterVertical.setClickListener(this);
 
-
-        /*
-        RecyclerView horizontalRecyclerView = findViewById(R.id.horizontalRV);
-        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(SubListActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        horizontalRecyclerView.setLayoutManager(horizontalLayoutManagaer);
-        adapter2 = new RecyclerViewAdapter(this);
-        horizontalRecyclerView.setAdapter(adapter2);
-        */
-
         listViewModel.getList(wordId).observe(this, new Observer<List<Word>>() {
             @Override
             public void onChanged(@Nullable final List<Word> words) {
-                // Update the cached copy of the words in the adapter.
-                Collections.sort(words, new Comparator<Word>() {
-                    @Override
-                    public int compare(Word c1, Word c2) {
-                        //You should ensure that list doesn't contain null values!
-                        return c1.getCategoryId().compareTo(c2.getCategoryId());
-                    }
-                });
+                SortWords.getSortedWords(words);
                 adapterVertical.setWords(words);
-                //adapter2.setWords(words);
             }
         });
 
@@ -165,9 +148,9 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
     }
 
     public void startCategoryFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.your_placeholder, new CategoryFragment());
-        ft.commit();
+        FragmentManager fm = getFragmentManager();
+        CategoryFragment dialogFragment = new CategoryFragment();
+        dialogFragment.show(fm, "Category Fragment");
     }
 
     public void saveData(String word, String id) {
@@ -181,7 +164,6 @@ public class SubListActivity extends AppCompatActivity implements RecyclerViewAd
 
     @Override
     public void onItemClick(View view, int position, Word word) {
-        //Toaster.showShortToastMethod(view.getContext(), word.getOwnerId());
         hideKeyboard(view);
     }
 

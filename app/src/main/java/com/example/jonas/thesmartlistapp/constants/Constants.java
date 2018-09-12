@@ -10,5 +10,6 @@ public class Constants {
     public static final String ID = "id";
     public static final String LIST_TITLE = "list_title";
     public static final float BUTTON_WIDTH_DELETE_DRAW = 300;
-
+    public static final int DIALOG_WIDTH = 200;
+    public static final int DIALOG_HEIGHT = 450;
 }

@@ -1,16 +1,14 @@
 package com.example.jonas.thesmartlistapp.activity;
 
+import android.app.FragmentManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,7 +17,6 @@ import android.widget.EditText;
 import com.example.jonas.thesmartlistapp.DAO.Word;
 import com.example.jonas.thesmartlistapp.R;
 import com.example.jonas.thesmartlistapp.constants.Constants;
-import com.example.jonas.thesmartlistapp.fragment.CategoryFragment;
 import com.example.jonas.thesmartlistapp.fragment.ColorFragment;
 import com.example.jonas.thesmartlistapp.helper.Color;
 import com.example.jonas.thesmartlistapp.helper.Toaster;
@@ -57,7 +54,7 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         if (v.getId() == R.id.category_button) {
             if (mCategoryText.getText().toString().isEmpty()) {
-                Toaster.showLongToastMethod(getApplicationContext(), getString(R.string.toast_add_category));
+                Toaster.showLongToastMethod(getApplicationContext(), getString(R.string.toast_enter_name));
             } else {
                 saveData(mCategoryText.getText().toString());
                 finish();
@@ -84,15 +81,13 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
     }
 
     public void startColorFragment() {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.your_placeholder, new ColorFragment());
-        ft.commit();
+        FragmentManager fm = getFragmentManager();
+        ColorFragment dialogFragment = new ColorFragment();
+        dialogFragment.show(fm, "Color Fragment");
     }
-
 
     @Override
     public void passDataToActivity(View view, int position) {
-       // Toaster.showShortToastMethod(view.getContext(), position);
         mColorButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(view.getContext(), Color.getColors(position))));
         color = position;
     }
