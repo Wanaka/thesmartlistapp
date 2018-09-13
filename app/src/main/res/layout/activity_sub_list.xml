@@ -8,6 +8,17 @@
     android:focusableInTouchMode="true"
     tools:context="com.example.jonas.thesmartlistapp.activity.SubListActivity">
 
+    <ImageView
+        android:id="@+id/search_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/searchBackground"
+        app:layout_constraintBottom_toTopOf="@+id/verticalRV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3" />
+
     <include
         android:id="@+id/include3"
         layout="@layout/list_toolbar"
@@ -44,14 +55,18 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_item_button"
-        android:layout_width="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
         android:clickable="true"
+        android:scaleType="center"
+        android:tint="@color/colorWhite"
         app:backgroundTint="@color/colorBlueMain"
+        app:fabSize="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/add_item_text" />
+        app:layout_constraintTop_toTopOf="@+id/add_item_text"
+        app:srcCompat="@drawable/ic_add" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/verticalRV"
@@ -74,6 +89,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

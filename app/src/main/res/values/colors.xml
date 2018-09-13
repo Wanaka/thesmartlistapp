@@ -5,8 +5,6 @@
     <color name="colorAccent">#ff4081</color>
     <color name="colorBlueHighlited">#62a7fc</color>
     <color name="colorBlueMain">#7ab2f9</color>
-
-
     <color name="colorGreen">#45ca41</color>
     <color name="colorBlue">#4148ca</color>
     <color name="colorRed">#e12127</color>
@@ -15,4 +13,5 @@
     <color name="colorPurple">#b610f2</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
+    <color name="searchBackground">#f4f4f4</color>
 </resources>
