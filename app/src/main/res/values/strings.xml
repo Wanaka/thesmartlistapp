@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">The Smart Shopping List</string>
     <string name="create_list_title">Create New List</string>
+    <string name="create_category_title">Create New Category</string>
     <string name="create_button">Create</string>
     <string name="close_button">X</string>
     <string name="add_item_hint">Add item</string>

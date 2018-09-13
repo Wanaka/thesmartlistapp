@@ -36,7 +36,7 @@ public class CreateCategoryActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_category);
         toolbar = findViewById(R.id.listToolbar);
-        toolbar.setTitle(R.string.create_list_title);
+        toolbar.setTitle(R.string.create_category_title);
         setSupportActionBar(toolbar);
 
         listViewModel = ViewModelProviders.of(this).get(ListViewModel.class);
